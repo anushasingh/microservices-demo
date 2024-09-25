@@ -794,3 +794,19 @@ spec:
     kind: Service
   - group: apps/v1
     kind: StatefulSet
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kibana-external
+  namespace: "kube-logging"
+spec:
+  type: LoadBalancer
+  selector:
+    app.kubernetes.io/name: "elastic-logging-1"
+    app.kubernetes.io/component: kibana-server
+  ports:
+    - name: http
+      port: 8081
+      targetPort: 5601
